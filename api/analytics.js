@@ -47,6 +47,22 @@ class AnalyticsAPI {
 			NextDNSError.handle(error);
 		}
 	}
+
+	static async getReasons() {
+		try {
+			const response = await superagent
+				.get(
+					`https://api.nextdns.io/profiles/${process.env.NEXTDNS_PROFILE_ID}/analytics/reasons`,
+				)
+				.set('X-Api-Key', process.env.NEXTDNS_API_KEY)
+				.set('Accept', 'application/json');
+
+			return NextDNSError.validateResponse(response);
+		}
+		catch (error) {
+			NextDNSError.handle(error);
+		}
+	}
 }
 
 module.exports = AnalyticsAPI;

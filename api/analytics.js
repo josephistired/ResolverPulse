@@ -63,6 +63,41 @@ class AnalyticsAPI {
 			NextDNSError.handle(error);
 		}
 	}
+
+	static async getDevices() {
+		try {
+			const data = [];
+			let cursor = null;
+
+			do {
+				const request = superagent
+					.get(
+						`https://api.nextdns.io/profiles/${process.env.NEXTDNS_PROFILE_ID}/analytics/devices`,
+					)
+					.query({ limit: 500 })
+					.set('X-Api-Key', process.env.NEXTDNS_API_KEY)
+					.set('Accept', 'application/json');
+
+				if (cursor) {
+					request.query({ cursor });
+				}
+
+				const response = await request;
+
+				const devices = NextDNSError.validateResponse(response);
+
+				data.push(...devices);
+
+				cursor = response.body?.meta?.pagination?.cursor ?? null;
+			}
+			while (cursor);
+
+			return data;
+		}
+		catch (error) {
+			NextDNSError.handle(error);
+		}
+	}
 }
 
 module.exports = AnalyticsAPI;

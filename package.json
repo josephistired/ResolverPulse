@@ -1,6 +1,6 @@
 {
   "name": "resolverpulse",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A modern Discord bot for viewing NextDNS analytics, query statistics, devices, and DNS insights using the NextDNS API.",
   "homepage": "https://github.com/josephistired/ResolverPulse#readme",
   "bugs": {
@@ -19,6 +19,7 @@
     "dev": "nodemon src/index.js"
   },
   "dependencies": {
+    "@discordx/pagination": "^4.4.1",
     "ascii-table": "^0.0.9",
     "discord.js": "^14.27.0",
     "dotenv": "^17.4.2",
